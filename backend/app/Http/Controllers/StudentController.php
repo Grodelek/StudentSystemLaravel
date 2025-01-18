@@ -12,7 +12,7 @@ class StudentController extends Controller
     {
         try{
             $students = Student::all();
-            return StudentResource::collection($students);
+            return response()->json($students);
         }catch (\Exception $e){
             return response()->json(['error' => 'Failed to retrieve students'], 500);
         }

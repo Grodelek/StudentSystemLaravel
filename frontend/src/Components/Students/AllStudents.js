@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
+import axios from "axios";
+import Navbar from "../Navbar";
 
-export default function Home() {
+export default function AllStudents() {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/students')
+        axios.get('http://127.0.0.1:8000/api/students')
             .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                setStudents(data.students);
+                console.log('API response:', response.data);
+                setStudents(response.data); // Set students to API response
                 setLoading(false);
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
     }, []);
 
     return (
         <div>
             <header>
-                <Navbar/>
+                <Navbar />
             </header>
             <h1>Students</h1>
             {loading ? (
@@ -29,8 +31,9 @@ export default function Home() {
                 <ul>
                     {students.length > 0 ? (
                         students.map((student) => (
-                            <li key={student.id || student.index}>
+                            <li key={student.id}>
                                 {student.name} {student.surname} ({student.index})
+                                - Specialization: {student.specialization}, Age: {student.age}
                             </li>
                         ))
                     ) : (

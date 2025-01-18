@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/api/students', [HomeController::class, 'getStudents']);
+Route::get('/', [MainController::class, 'index']);

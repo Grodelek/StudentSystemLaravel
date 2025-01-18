@@ -10,6 +10,8 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $table = 'students';
+
     protected $fillable = [
         'name',
         'surname',
@@ -18,9 +20,10 @@ class Student extends Model
         'index',
     ];
 
+
     public function getInfo(): string
     {
-        return "Student: {$this->name} {$this->surname}, Specialisation: {$this->specialization}, Age: {$this->age}, Index: {$this->index}";
+        return "Student: {$this->name} {$this->surname}, Specialization: {$this->specialization}, Age: {$this->age}, Index: {$this->index}";
     }
 
     public function setAgeAttribute($value): void

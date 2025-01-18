@@ -1,16 +1,22 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Student;
 
 class HomeController extends Controller
 {
     public function index(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['message' => 'dupa'], 200);
+        return response()->json(['message' => 'HELLO WORLD!'], 200);
     }
-    public function hello(): \Illuminate\Http\JsonResponse
+    public function getStudents(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['message' => 'Hello, world!']);
+        try{
+            $students = Student::all();
+            return response()->json(['students' => $students ], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => 'Failed to retrieve students'], 500);
+        }
     }
+
 }

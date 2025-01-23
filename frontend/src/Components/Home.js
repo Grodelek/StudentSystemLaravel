@@ -26,7 +26,7 @@ export default function Home() {
                         <div className="bg-white rounded-lg shadow-lg p-6">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">View Students</h2>
                             <p className="text-gray-600 mb-4">Easily access the full list of students, along with their details.</p>
-                            <Link to="api/student">
+                            <Link to="api/students">
                                 <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                                     Get Started
                                 </button>

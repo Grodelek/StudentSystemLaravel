@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    background-color: #4CAF50; /* zielony */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Tryb wysokiego kontrastu */
+.high-contrast {
+    background-color: #000000; /* czarne tło */
+    color: #FFFFFF; /* biały tekst */
+}
+
+.high-contrast button {
+    background-color: #FF5733; /* czerwony przycisk w trybie wysokiego kontrastu */
+}
+
+/* Przycisk zmiany kontrastu */
+.contrast-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.contrast-toggle:hover {
+    background-color: #555;
+}

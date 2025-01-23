@@ -1,80 +1,34 @@
 <?php
 
-use App\Models\Subject;
+namespace App\Models;
 
-class Teacher
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Teacher extends Model
 {
-    private string $name;
-    private string $surname;
-    private string $specialisation;
+    use HasFactory;
 
-    /** @var Subject[] */
-    private array $subjects = [];
+    protected $table = 'teachers';
 
-    public function __construct(string $name, string $surname, string $specialisation)
+    protected $fillable = [
+        'name',
+        'surname',
+        'specialisation',
+    ];
+
+    // Define a relationship with the Subject model
+    public function subjects()
     {
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->specialisation = $specialisation;
+        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
-    public function getSpecialisation(): string
-    {
-        return $this->specialisation;
-    }
-
-    public function getSubjects(): array
-    {
-        return $this->subjects;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setSurname(string $surname): void
-    {
-        $this->surname = $surname;
-    }
-
-    public function setSpecialisation(string $specialisation): void
-    {
-        $this->specialisation = $specialisation;
-    }
-
-    public function addSubject(Subject $subject): void
-    {
-        $this->subjects[] = $subject;
-    }
-
-    public function removeSubject(Subject $subject): void
-    {
-        foreach ($this->subjects as $key => $s) {
-            if ($s === $subject) {
-                unset($this->subjects[$key]);
-                break;
-            }
-        }
-    }
-
+    // Helper method to get teacher info
     public function getInfo(): string
     {
-        $subjectNames = array_map(function (Subject $subject) {
-            return $subject->getName();
-        }, $this->subjects);
-
+        $subjectNames = $this->subjects->pluck('name')->toArray();
         $subjectList = implode(", ", $subjectNames);
+
         return "Teacher: {$this->name} {$this->surname}, Specialisation: {$this->specialisation}, Subjects: [{$subjectList}]";
     }
 }

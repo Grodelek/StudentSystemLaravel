@@ -1,50 +1,18 @@
 <?php
+
 namespace App\Models;
 
-class Subject
+use Illuminate\Database\Eloquent\Model;
+
+class Subject extends Model
 {
-    private string $name;
-    private int $hours;
-    private string $lecturer;
+    protected $table = 'subjects';
 
-    public function __construct(string $name, int $hours, string $lecturer)
-    {
-        $this->name = $name;
-        $this->hours = $hours;
-        $this->lecturer = $lecturer;
-    }
+    protected $fillable = ['name', 'hours', 'lecturer'];
 
-    public function getName(): string
+    public function teachers()
     {
-        return $this->name;
-    }
-
-    public function getHours(): int
-    {
-        return $this->hours;
-    }
-
-    public function getLecturer(): string
-    {
-        return $this->lecturer;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setHours(int $hours): void
-    {
-        if ($hours < 0) {
-            throw new InvalidArgumentException("Hours cannot be negative.");
-        }
-        $this->hours = $hours;
-    }
-
-    public function setLecturer(string $lecturer): void
-    {
-        $this->lecturer = $lecturer;
+        return $this->belongsToMany(Teacher::class, 'subject_teacher', 'subject_id', 'teacher_id');
     }
 
     public function getInfo(): string

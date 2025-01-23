@@ -37,4 +37,17 @@ class StudentController extends Controller
             'message' => 'Student created successfully'
         ]);
     }
+    public function delete($id): JsonResponse
+    {
+        try {
+            $student = Student::find($id);
+            if (!$student) {
+                return response()->json(['error' => 'Student not found.'], 404);
+            }
+            $student->delete();
+            return response()->json(['message' => 'Student deleted successfully.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete the student.'], 500);
+        }
+    }
 }
